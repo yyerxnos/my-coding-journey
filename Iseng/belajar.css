@@ -1,0 +1,280 @@
+/* reset & font */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Poppins", system-ui, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* warna sebagai css variables */
+:root {
+  --bg-color: #0f172a;
+  --nav-color: #1e293b;
+  --text-color: #ffffff;
+  --accent: #38bdf8;
+}
+
+body.light {
+  --bg-color: #f8fafc;
+  --nav-color: #e2e8f0;
+  --text-color: #0f172a;
+  /* bisa ubah accent juga kalau mau berbeda pada light */
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* navbar */
+.navbar {
+  width: 95%;
+  max-width: 1200px;
+  background: var(--nav-color);
+  border-radius: 14px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.25s ease;
+  margin: auto;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-color);
+  cursor: pointer;
+}
+.logo .highlight {
+  color: var(--accent);
+}
+
+/* nav links: relative supaya .indicator diposisikan relatif ke sini */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  position: relative; /* penting! */
+  flex: 1;
+  align-items: center;
+}
+
+/* link */
+.nav-links li a {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
+  transition: color 0.2s ease;
+}
+
+/* active style (text) */
+.nav-links li a.active {
+  color: var(--nav-color);
+}
+
+/* indikator */
+/* indikator di bawah link, sebagai latar */
+#indicator {
+  position: absolute;
+  bottom: 1px; /* jarak dari bawah ul */
+  left: 0;
+  height: 34px; /* tinggi latar link */
+  background: var(--accent);
+  border-radius: 12px;
+  transition: left 0.28s cubic-bezier(0.2, 0.9, 0.2, 1),
+    width 0.28s cubic-bezier(0.2, 0.9, 0.2, 1);
+  z-index: 0; /* pastikan link di atas indikator */
+  opacity: 0.95;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  align-items: center;
+}
+
+/* link di atas indikator */
+#nav-links a {
+  position: relative;
+  z-index: 1;
+}
+
+/* aktif: teks tetap terlihat */
+#nav-links a.active {
+  color: var(--nav-color); /* pastikan kontras dengan indikator */
+}
+
+/* karena indikator adalah latar, link aktif butuh background dari indicator
+   kita buat teks aktif gelap (lihat .nav-links li a.active di atas) */
+
+/* kanan: tombol + profil */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mode-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  padding: 6px;
+  color: var(--text-color);
+  border-radius: 8px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.mode-toggle:focus {
+  outline: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.mode-toggle:hover {
+  transform: scale(1.2); /* membesar saat hover */
+  color: var(--accent); /* berubah warna sesuai accent */
+}
+
+/* profil */
+.profile img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%; /* bikin bulat */
+  object-fit: cover;
+  border: 2px solid var(--accent); /* warna accent dari navbar */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* efek shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile img:hover {
+  transform: scale(1.1); /* sedikit membesar */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35); /* shadow lebih dramatis */
+}
+
+/* responsive */
+@media (max-width: 700px) {
+  .nav-links {
+    gap: 12px;
+  }
+  .indicator {
+    bottom: 6px;
+    height: 32px;
+  }
+}
+
+#logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: linear-gradient(270deg, #38bdf8, #6366f1, #f472b6, #38bdf8);
+  background-size: 600% 600%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+  animation: gradientMove 6s ease infinite;
+}
+
+/* highlight huruf DI tetap kuning */
+#logo .highlight {
+  color: #facc15;
+}
+
+/* animasi gradient */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#logo:hover {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+/* Search bar kecil */
+.search-input {
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  outline: none;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+.search-input:focus {
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 5px var(--highlight-color);
+}
+
+/* Notifikasi */
+.notification {
+  position: relative;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 15px;
+}
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 0.6rem;
+  padding: 2px 4px;
+  border-radius: 50%;
+}
+
+/* Dropdown profil */
+.profile {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.profile img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+.profile img:hover {
+  transform: scale(1.1);
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: var(--nav-color);
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+.dropdown li a {
+  display: block;
+  padding: 8px 15px;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+.dropdown li a:hover {
+  background: var(--highlight-color);
+  color: #fff;
+}
+.profile.active .dropdown {
+  display: block;
+}
