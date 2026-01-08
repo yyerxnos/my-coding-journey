@@ -1,0 +1,172 @@
+/* 1. Pengaturan Dasar & Font */
+:root {
+    --primary-color: #4A90E2;
+    --bg-light: #f5f7fa;
+    --card-white: #ffffff;
+    --text-main: #2d3436;
+    --text-sub: #636e72;
+    --accent-bg: rgba(74, 144, 226, 0.05);
+}
+
+.dark-mode {
+    --bg-light: #1a1a1a;
+    --card-white: #2d2d2d;
+    --text-main: #f5f7fa;
+    --text-sub: #b2bec3;
+    --accent-bg: rgba(255, 255, 255, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-light);
+    font-family: 'Quicksand', sans-serif;
+    transition: background 0.4s ease;
+}
+
+.container {
+    background-color: var(--card-white);
+    width: 100%;
+    max-width: 400px; 
+    padding: 35px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: background 0.4s ease;
+}
+
+/* 3. Header & Input Section */
+.header h1 { font-size: 24px; color: var(--text-main); margin: 0; }
+.header p { color: var(--text-sub); font-size: 14px; margin-top: 5px; }
+.devider { border: 0; border-top: 1px solid #eee; margin: 20px 0; opacity: 0.5; }
+.input-box { text-align: left; margin-bottom: 15px; }
+label { font-size: 13px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 8px; }
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #edf2f7;
+    border-radius: 12px;
+    font-size: 16px;
+    background-color: transparent;
+    color: var(--text-main);
+}
+
+
+/* GAYA TOMBOL NEON      */
+
+button {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 15px 30px; /* Disesuaikan agar pas di kalkulator */
+  transition: 0.5s;
+  position: relative;
+  font-size: 17px;
+  background: #333;
+  border: none;
+  color: #fff;
+  width: 100%; /* Agar lebar penuh di container */
+  cursor: pointer;
+  margin-top: 10px;
+  display: block;
+}
+
+button:hover {
+  letter-spacing: 0.25em;
+  background: #ff1867;
+  color: #ff1867;
+  box-shadow: 0 0 45px #ff1867;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: #222222;
+}
+
+button span {
+  position: relative;
+  z-index: 1;
+}
+
+button i {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+button i::before {
+  content: '';
+  position: absolute;
+  border: 2px solid #ff1867;
+  width: 7px;
+  height: 4px;
+  top: -3.5px;
+  left: 80%;
+  background: #222222;
+  transform: translateX(-50%);
+  transition: 0.5s;
+}
+
+button:hover i::before {
+  width: 20px;
+  left: 20%;
+}
+
+button i::after {
+  content: '';
+  position: absolute;
+  border: 2px solid #ff1867;
+  width: 7px;
+  height: 4px;
+  bottom: -3.5px;
+  left: 20%;
+  background: #222222;
+  transform: translateX(-50%);
+  transition: 0.5s;
+}
+
+button:hover i::after {
+  width: 20px;
+  left: 80%;
+}
+
+/* Khusus tombol ganti tema agar tidak terlalu besar */
+.btn-secondary {
+    margin-top: 25px;
+    font-size: 13px;
+    padding: 10px 20px;
+}
+
+/* 6. Kotak Hasil */
+.hasil-container {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: var(--accent-bg);
+    border-radius: 20px;
+}
+
+.skor-wrapper #skor-bmi {
+    font-size: 45px;
+    font-weight: 800;
+    color: var(--primary-color);
+    display: block;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50px;
+    font-size: 12px;
+}
