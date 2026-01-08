@@ -1,4 +1,4 @@
-/* 1. Pengaturan Dasar & Font */
+/* 1. Variabel Warna & Tema (Light & Dark Mode) */
 :root {
     --primary-color: #4A90E2;
     --bg-light: #f5f7fa;
@@ -8,6 +8,7 @@
     --accent-bg: rgba(74, 144, 226, 0.05);
 }
 
+/* Pengaturan warna saat mode gelap aktif */
 .dark-mode {
     --bg-light: #1a1a1a;
     --card-white: #2d2d2d;
@@ -16,6 +17,7 @@
     --accent-bg: rgba(255, 255, 255, 0.05);
 }
 
+/* 2. Reset & Layout Body */
 * {
     box-sizing: border-box;
 }
@@ -32,6 +34,7 @@ body {
     transition: background 0.4s ease;
 }
 
+/* Bungkus utama kalkulator */
 .container {
     background-color: var(--card-white);
     width: 100%;
@@ -43,13 +46,15 @@ body {
     transition: background 0.4s ease;
 }
 
-/* 3. Header & Input Section */
+/* 3. Tipografi & Input Area */
 .header h1 { font-size: 24px; color: var(--text-main); margin: 0; }
 .header p { color: var(--text-sub); font-size: 14px; margin-top: 5px; }
 .devider { border: 0; border-top: 1px solid #eee; margin: 20px 0; opacity: 0.5; }
+
 .input-box { text-align: left; margin-bottom: 15px; }
 label { font-size: 13px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 8px; }
 
+/* Desain kolom input */
 input {
     width: 100%;
     padding: 12px 15px;
@@ -60,25 +65,24 @@ input {
     color: var(--text-main);
 }
 
-
-/* GAYA TOMBOL NEON      */
-
+/* 4. Tombol Utama (Gaya Neon) */
 button {
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 15px 30px; /* Disesuaikan agar pas di kalkulator */
+  padding: 15px 30px;
   transition: 0.5s;
   position: relative;
   font-size: 17px;
   background: #333;
   border: none;
   color: #fff;
-  width: 100%; /* Agar lebar penuh di container */
+  width: 100%;
   cursor: pointer;
   margin-top: 10px;
   display: block;
 }
 
+/* Efek cahaya saat kursor menempel */
 button:hover {
   letter-spacing: 0.25em;
   background: #ff1867;
@@ -86,6 +90,7 @@ button:hover {
   box-shadow: 0 0 45px #ff1867;
 }
 
+/* Lapisan dalam tombol */
 button::before {
   content: '';
   position: absolute;
@@ -98,12 +103,14 @@ button span {
   z-index: 1;
 }
 
+/* Garis hiasan di pinggir tombol */
 button i {
   position: absolute;
   inset: 0;
   display: block;
 }
 
+/* Hiasan kotak kecil atas */
 button i::before {
   content: '';
   position: absolute;
@@ -122,6 +129,7 @@ button:hover i::before {
   left: 20%;
 }
 
+/* Hiasan kotak kecil bawah */
 button i::after {
   content: '';
   position: absolute;
@@ -140,14 +148,14 @@ button:hover i::after {
   left: 80%;
 }
 
-/* Khusus tombol ganti tema agar tidak terlalu besar */
+/* Tombol ganti tema */
 .btn-secondary {
     margin-top: 25px;
     font-size: 13px;
     padding: 10px 20px;
 }
 
-/* 6. Kotak Hasil */
+/* 5. Tampilan Hasil Kalkulasi */
 .hasil-container {
     margin-top: 25px;
     padding: 20px;
@@ -155,6 +163,7 @@ button:hover i::after {
     border-radius: 20px;
 }
 
+/* Angka skor besar */
 .skor-wrapper #skor-bmi {
     font-size: 45px;
     font-weight: 800;
@@ -162,6 +171,7 @@ button:hover i::after {
     display: block;
 }
 
+/* Label status (Normal, Overweight, dll) */
 .badge {
     display: inline-block;
     padding: 5px 15px;
@@ -169,4 +179,63 @@ button:hover i::after {
     color: white;
     border-radius: 50px;
     font-size: 12px;
+}
+
+/* 6. Komponen Tambahan & Input Satuan */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Teks cm/kg di dalam input */
+.unit-text {
+    position: absolute;
+    right: 15px;
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: bold;
+}
+
+/* Highlight kolom saat diklik */
+input:focus {
+    outline: none;
+    border-color: #ff1867;
+    box-shadow: 0 0 10px rgba(255, 24, 103, 0.2);
+}
+
+/* Kotak teks saran kesehatan */
+.saran-box {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: var(--accent-bg);
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-main);
+    border-left: 4px solid var(--primary-color);
+    animation: slideIn 0.5s ease;
+}
+
+/* Animasi muncul dari bawah */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Kecepatan transisi elemen */
+body, .container, input, .hasil-container {
+    transition: all 0.3s ease;
+}
+
+/* Jarak teks input agar tidak menumpuk dengan unit */
+.input-wrapper input {
+    padding-right: 50px;
+}
+
+/* Sembunyikan panah default input angka */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
