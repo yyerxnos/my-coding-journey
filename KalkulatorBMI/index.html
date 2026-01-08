@@ -1,30 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kalkulator BMI Sederhana</title>
+    <title>Kalkulator BMI Profesional</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
   </head>
   <body>
     <div class="container">
       <div class="header">
         <div class="icon-app">⚖️</div>
-        <h1>Kalkulator BMI</h1>
-        <p>Cek kesehatan anda disini</p>
+        <h1>BMI Tracker</h1>
+        <p>Monitor kesehatan tubuh Anda</p>
       </div>
 
       <hr class="devider" />
+
+      <div class="gender-selection">
+        <label class="label-title">Jenis Kelamin</label>
+        <div class="gender-options">
+          <input type="radio" name="gender" id="pria" value="pria" checked />
+          <label for="pria" class="gender-card">
+            <i class="fas fa-mars"></i>
+            <span>Pria</span>
+          </label>
+
+          <input type="radio" name="gender" id="wanita" value="wanita" />
+          <label for="wanita" class="gender-card">
+            <i class="fas fa-venus"></i>
+            <span>Wanita</span>
+          </label>
+        </div>
+      </div>
 
       <div class="input-section">
         <div class="input-box">
@@ -50,17 +67,26 @@
         </div>
       </div>
 
-      <button id="btn-hitung" class="btn-main">
-        <span>Hitung Sekarang</span>
-        <i></i>
-      </button>
+      <div class="button-group">
+        <button id="btn-hitung" class="btn-main">
+          <span>Hitung BMI</span>
+          <i></i>
+        </button>
+        <button id="btn-reset" class="btn-reset">
+          <span><i class="fas fa-undo"></i> Reset</span>
+        </button>
+      </div>
 
       <div class="hasil-container">
-        <p>Skor BMI Anda</p>
+        <p class="res-title">Skor BMI Anda</p>
         <div class="skor-wrapper">
-          <span id="skor-bmi">0</span>
+          <span id="skor-bmi">0.0</span>
         </div>
-        <p id="keterangan" class="badge">Silahkan masukan data</p>
+        <p id="keterangan" class="badge">Menunggu Data...</p>
+
+        <div id="info-ideal" class="info-ideal" style="display: none">
+          <p>Berat ideal: <strong id="range-ideal">-</strong></p>
+        </div>
       </div>
 
       <div id="box-saran" class="saran-box" style="display: none">
@@ -68,13 +94,11 @@
       </div>
 
       <div class="footer">
-        <button id="btn-tema" class="btn-secondary">
-          <span>🌙 Ganti Tema</span>
-          <i></i>
+        <button id="btn-tema" class="btn-theme-toggle">
+          <i class="fas fa-moon"></i> Ganti Tema
         </button>
       </div>
-
-      <script src="script.js"></script>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
