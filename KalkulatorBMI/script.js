@@ -162,7 +162,7 @@ function hitungBMI() {
   }
   requestAnimationFrame(updateNumber);
 
-  // --- LOGIKA WARNA & TEKS (Tetap Menggunakan Data Anda) ---
+  // --- LOGIKA WARNA & TEKS  ---
   let kategori = "", warna = "", saran = "";
 
   if (bmi < 18.5) {
@@ -196,3 +196,21 @@ function hitungBMI() {
   boxIdeal.style.display = "block";
 }
 
+// --- FUNGSI RESET KALKULATOR ---
+function resetCalcuator() {
+  // Reset input
+  inputBerat.value = "";
+  inputTinggi.value = "";
+  
+  // Reset tampilan skor dan kategori
+  skorBmiDisplay.innerText = "0.0";
+  keteranganDisplay.innerText = "Menunggu Data...";
+  keteranganDisplay.style.backgroundColor = "var(--text-sub)";
+  keteranganDisplay.classList.remove("shiny-text");
+
+  // Sembunyikan box saran dan ideal
+  boxSaran.style.display = "none";
+  boxIdeal.style.display = "none";
+  teksSaran.innerText = "";
+  rangeIdealDisplay.innerText = "-";
+}
