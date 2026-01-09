@@ -12,16 +12,22 @@
 .dark-mode {
   --bg-light: #1a1a1a;
   --card-white: #2d2d2d;
-  --text-main: #f5f7fa;
+  --text-main: #ffffff; /* DIUBAH: Sekarang teks otomatis jadi putih di mode gelap */
   --text-sub: #b2bec3;
   --accent-bg: rgba(255, 255, 255, 0.05);
 }
 
-/* 2. Reset Utama */
+/* 2. Reset Utama & ANTI-KURSOR TEKS GLOBAL */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* BARU: Menghilangkan kursor teks/seleksi di seluruh aplikasi */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
 }
 
 body {
@@ -33,6 +39,23 @@ body {
   font-family: "Quicksand", sans-serif;
   transition: 0.4s;
   padding: 20px;
+  color: var(--text-main); /* BARU: Memastikan body mengikuti warna tema */
+}
+
+/* BARU: Pengecualian agar kursor teks tetap muncul saat mengisi angka */
+input[type="number"] {
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+}
+
+/* BARU: Memastikan semua tombol tetap menggunakan kursor tangan */
+button,
+.gender-card,
+.close-modal,
+.morph-btn,
+.btn-theme-toggle {
+  cursor: pointer !important;
 }
 
 /* 3. Container Card */
@@ -76,10 +99,10 @@ body {
   margin: 15px 0 25px 0;
 }
 
-/* 5. Gender Selection (Tulisan "Jenis Kelamin" di Tengah) */
+/* 5. Gender Selection */
 .gender-selection {
   margin-bottom: 25px;
-  text-align: center; /* Nengahin tulisan judul section */
+  text-align: center;
 }
 
 .gender-selection label:first-child {
@@ -249,7 +272,7 @@ input::-webkit-inner-spin-button {
   color: #e74c3c;
 }
 
-/* 8. Hasil - Tengah & Anti Kursor Garis */
+/* 8. Hasil */
 .hasil-container {
   margin-top: 25px;
   padding: 25px;
@@ -259,7 +282,6 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  user-select: none;
 }
 
 #skor-bmi {
@@ -268,8 +290,7 @@ input::-webkit-inner-spin-button {
   color: var(--primary);
   line-height: 1;
   margin: 10px 0;
-  cursor: default;
-  pointer-events: none; /* Biar gak bisa diklik kursor biru */
+  pointer-events: none;
 }
 
 .badge {
@@ -291,4 +312,496 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
   width: 100%;
   font-weight: 600;
+}
+
+/* --- KHUSUS LANDING PAGE & MODAL --- */
+.landing-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-light);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  transition: 0.5s ease-in-out;
+}
+
+.icon-large {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.landing-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 50px;
+  align-items: center;
+}
+
+.morph-btn {
+  position: relative;
+  padding: 22px 56px;
+  font-family: "Quicksand", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: visible;
+  isolation: isolate;
+  width: 250px;
+}
+
+.morph-btn .btn-fill {
+  position: absolute;
+  inset: 0;
+  background: #0d0d0d;
+  border-radius: 4px;
+  transition: border-radius 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 1;
+}
+
+.morph-btn:hover .btn-fill {
+  border-radius: 50px;
+  animation: jelly 0.5s ease;
+}
+
+@keyframes jelly {
+  0% {
+    transform: scale(1, 1);
+  }
+  30% {
+    transform: scale(1.15, 0.85);
+  }
+  50% {
+    transform: scale(0.9, 1.1);
+  }
+  70% {
+    transform: scale(1.05, 0.95);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.morph-btn .orbit-dots {
+  position: absolute;
+  inset: -30px;
+  pointer-events: none;
+}
+.morph-btn .orbit-dots span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #0d0d0d;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.morph-btn:hover .orbit-dots span {
+  opacity: 1;
+}
+
+.morph-btn .orbit-dots span:nth-child(1) {
+  top: 0;
+  left: 50%;
+  animation: orbit1 3s linear infinite;
+}
+.morph-btn .orbit-dots span:nth-child(2) {
+  bottom: 0;
+  left: 50%;
+  animation: orbit2 3s linear infinite;
+}
+.morph-btn .orbit-dots span:nth-child(3) {
+  top: 50%;
+  left: 0;
+  animation: orbit3 4s linear infinite;
+}
+.morph-btn .orbit-dots span:nth-child(4) {
+  top: 50%;
+  right: 0;
+  animation: orbit4 4s linear infinite;
+}
+
+@keyframes orbit1 {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(20px) scale(1);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+@keyframes orbit2 {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(0.6);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-20px) scale(0.6);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0) scale(0.6);
+  }
+}
+@keyframes orbit3 {
+  0% {
+    transform: translateY(-50%) translateX(0) scale(0.8);
+  }
+  50% {
+    transform: translateY(-50%) translateX(-15px) scale(1.2);
+  }
+  100% {
+    transform: translateY(-50%) translateX(0) scale(0.8);
+  }
+}
+@keyframes orbit4 {
+  0% {
+    transform: translateY(-50%) translateX(0) scale(1.2);
+  }
+  50% {
+    transform: translateY(-50%) translateX(15px) scale(0.8);
+  }
+  100% {
+    transform: translateY(-50%) translateX(0) scale(1.2);
+  }
+}
+
+.morph-btn .btn-text {
+  position: relative;
+  display: inline-block;
+  z-index: 3;
+  pointer-events: none;
+}
+.morph-btn .btn-text span {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition-delay: calc(var(--i) * 0.03s);
+}
+.morph-btn:hover .btn-text span {
+  transform: translateY(-100%);
+  animation: letterBounce 0.6s forwards;
+  animation-delay: calc(var(--i) * 0.03s);
+}
+
+@keyframes letterBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+}
+
+.morph-btn .corners span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #0d0d0d;
+  transition: 0.4s;
+  opacity: 1;
+}
+.morph-btn .corners span:nth-child(1) {
+  top: -10px;
+  left: -10px;
+  border-right: none;
+  border-bottom: none;
+}
+.morph-btn .corners span:nth-child(2) {
+  top: -10px;
+  right: -10px;
+  border-left: none;
+  border-bottom: none;
+}
+.morph-btn .corners span:nth-child(3) {
+  bottom: -10px;
+  left: -10px;
+  border-right: none;
+  border-top: none;
+}
+.morph-btn .corners span:nth-child(4) {
+  bottom: -10px;
+  right: -10px;
+  border-left: none;
+  border-top: none;
+}
+
+.morph-btn .shadow {
+  position: absolute;
+  inset: 5px;
+  background: rgba(13, 13, 13, 0.3);
+  border-radius: 4px;
+  filter: blur(15px);
+  z-index: 0;
+  transform: translateY(10px);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: var(--card-white);
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  text-align: center;
+  color: var(--text-main);
+}
+.close-modal {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 28px;
+  cursor: pointer;
+}
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.info-table th,
+.info-table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* EFEK SCRAMBLE WELCOME --- */
+#welcome-screen {
+  position: fixed;
+  inset: 0;
+  background: #0d0d0d; /* Latar belakang hitam pekat agar efek hacker menonjol */
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease-in-out;
+  cursor: default; /* Memastikan kursor tetap panah */
+}
+
+.welcome-text {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  /* Menggunakan font monospace agar lebar huruf sama saat diacak */
+  font-family: 'Courier New', Courier, monospace; 
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  user-select: none; /* Mencegah teks diblok biru */
+  -webkit-user-select: none;
+}
+
+/* Pastikan animasi fade-out tetap ada */
+.fade-out-welcome {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Responsif untuk HP agar teks tidak terpotong */
+@media (max-width: 480px) {
+  .welcome-text {
+    font-size: 1.8rem;
+    letter-spacing: 5px;
+  }
+}
+
+.letter {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: "Quicksand", sans-serif;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: revealLetter 0.5s forwards;
+}
+.letter:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.letter:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.letter:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.letter:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.letter:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.letter:nth-child(6) {
+  animation-delay: 0.6s;
+}
+.letter:nth-child(7) {
+  animation-delay: 0.7s;
+}
+@keyframes revealLetter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-out-welcome {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Menata teks penjelasan di dalam modal agar tidak terlalu rapat */
+.bmi-explanation {
+  text-align: left;
+  margin: 15px 0 20px 0;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.bmi-explanation p {
+  color: var(--text-main); /* Mengikuti tema gelap/terang */
+}
+
+
+/* --- FITUR NAVIGASI & TEMA SINKRON --- */
+
+/* Tombol Kembali di Kalkulator */
+.btn-back {
+  background: transparent;
+  border: none;
+  color: var(--text-sub);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+  user-select: none;
+}
+.btn-back:hover { color: var(--primary); }
+
+/* Tombol Tema di Landing Page */
+.btn-theme-landing {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--text-main);
+  color: var(--card-white);
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  transition: 0.4s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Memastikan Transisi Landing Page Mulus */
+.landing-overlay {
+  transition: opacity 0.5s ease-in-out, visibility 0.5s;
+}
+
+/* Gaya Teks Scramble Welcome */
+.welcome-text {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+}
+
+/* Mobile Responsive Welcome */
+@media (max-width: 480px) {
+  .welcome-text { font-size: 1.8rem; letter-spacing: 5px; }
+}
+
+
+
+/* 1. Transisi halus untuk semua elemen */
+.morph-btn .btn-fill, 
+.morph-btn .corners span,
+.morph-btn .orbit-dots span {
+    transition: all 0.4s ease;
+}
+
+/* 2. Gaya tombol di Mode Gelap */
+.dark-mode .morph-btn .btn-fill {
+    background: #2d2d2d; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 3. MEMBUAT TITIK BULAT (ANIMASI ORBIT) MENYALA */
+.dark-mode .morph-btn .orbit-dots span {
+    background: #4a90e2; /* Berubah jadi biru */
+    box-shadow: 0 0 10px #4a90e2; /* Efek lampu menyala */
+}
+
+/* 4. Siku-siku dekorasi di Mode Gelap */
+.dark-mode .morph-btn .corners span {
+    border-color: #4a90e2;
+    filter: drop-shadow(0 0 5px #4a90e2);
+}
+
+/* 5. Khusus tombol EXIT (Titik & Siku jadi Merah) */
+.dark-mode #btn-keluar .orbit-dots span {
+    background: #ff4d4d;
+    box-shadow: 0 0 10px #ff4d4d;
+}
+.dark-mode #btn-keluar .corners span {
+    border-color: #ff4d4d;
+    filter: drop-shadow(0 0 5px #ff4d4d);
+}
+.dark-mode #btn-keluar .btn-fill {
+    background: #e74c3c;
+    border: none;
+}
+
+/* Warna Neon Pink untuk Pilihan Wanita saat Aktif */
+input[type="radio"]#wanita:checked + .gender-card {
+  border-color: #ff1867; /* Warna neon pink */
+  color: #ff1867; /* Mengubah warna teks/ikon menjadi pink */
+  background: var(--card-white);
+  box-shadow: 0 0 15px rgba(255, 24, 103, 0.4), 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* transisi warna halus */
+.gender-card {
+  transition: all 0.3s ease;
+}
+
+/* Menyamakan Glow Biru untuk Pria 
+input[type="radio"]#pria:checked + .gender-card {
+  border-color: var(--primary); 
+  color: var(--primary);
+  background: var(--card-white);
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.4), 0 10px 20px rgba(0, 0, 0, 0.1);
 }

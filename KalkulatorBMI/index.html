@@ -17,10 +17,118 @@
     />
   </head>
   <body>
+    <div id="welcome-screen">
+      <div class="welcome-text" id="scramble-text">WELCOME</div>
+    </div>
+
+    <div id="landing-page" class="landing-overlay">
+      <button id="btn-tema-landing" class="btn-theme-landing">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <div class="landing-content">
+        <div class="icon-large">⚖️</div>
+        <h1>Welcome to Kalkulator BMI</h1>
+        <p>Monitor kesehatan tubuh Anda dengan mudah</p>
+
+        <div class="landing-buttons">
+          <button id="btn-masuk" class="morph-btn">
+            <div class="btn-fill"></div>
+            <div class="shadow"></div>
+            <div class="btn-text">
+              <span style="--i: 0">M</span><span style="--i: 1">a</span
+              ><span style="--i: 2">s</span><span style="--i: 3">u</span
+              ><span style="--i: 4">k</span>
+            </div>
+            <div class="orbit-dots">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="corners">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </button>
+
+          <button id="btn-info-buka" class="morph-btn">
+            <div class="btn-fill"></div>
+            <div class="shadow"></div>
+            <div class="btn-text">
+              <span style="--i: 0">I</span><span style="--i: 1">n</span
+              ><span style="--i: 2">f</span><span style="--i: 3">o</span>
+            </div>
+            <div class="orbit-dots">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="corners">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </button>
+
+          <button id="btn-keluar" class="morph-btn">
+            <div class="btn-fill" style="background: #e74c3c"></div>
+            <div class="shadow"></div>
+            <div class="btn-text">
+              <span style="--i: 0">E</span><span style="--i: 1">x</span
+              ><span style="--i: 2">i</span><span style="--i: 3">t</span>
+            </div>
+            <div class="orbit-dots">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="corners">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-info" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Standar Skor BMI</h3>
+        <div class="bmi-explanation">
+          <p>
+            <strong>Body Mass Index (BMI)</strong> adalah metode standar untuk
+            menentukan apakah berat badan Anda sehat dibandingkan dengan tinggi
+            badan Anda.
+          </p>
+        </div>
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>Kategori</th>
+              <th>Skor BMI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Kurus</td>
+              <td>&lt; 18.5</td>
+            </tr>
+            <tr class="row-ideal">
+              <td>Normal (Ideal)</td>
+              <td>18.5 - 24.9</td>
+            </tr>
+            <tr>
+              <td>Gemuk</td>
+              <td>25.0 - 29.9</td>
+            </tr>
+            <tr>
+              <td>Obesitas</td>
+              <td>&gt; 30.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="container">
+      <button id="btn-kembali" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Kembali
+      </button>
+
       <div class="header">
         <div class="icon-app">⚖️</div>
-        <h1>BMI Tracker</h1>
+        <h1>Kalkulator BMI</h1>
         <p>Monitor kesehatan tubuh Anda</p>
       </div>
 
@@ -30,16 +138,13 @@
         <label class="label-title">Jenis Kelamin</label>
         <div class="gender-options">
           <input type="radio" name="gender" id="pria" value="pria" checked />
-          <label for="pria" class="gender-card">
-            <i class="fas fa-mars"></i>
-            <span>Pria</span>
-          </label>
-
+          <label for="pria" class="gender-card"
+            ><i class="fas fa-mars"></i><span>Pria</span></label
+          >
           <input type="radio" name="gender" id="wanita" value="wanita" />
-          <label for="wanita" class="gender-card">
-            <i class="fas fa-venus"></i>
-            <span>Wanita</span>
-          </label>
+          <label for="wanita" class="gender-card"
+            ><i class="fas fa-venus"></i><span>Wanita</span></label
+          >
         </div>
       </div>
 
@@ -57,7 +162,6 @@
             <span class="unit-text">Kg</span>
           </div>
         </div>
-
         <div class="input-box">
           <label for="input-tinggi">Tinggi Badan</label>
           <div class="input-wrapper">
@@ -69,8 +173,7 @@
 
       <div class="button-group">
         <button id="btn-hitung" class="btn-main">
-          <span>Hitung BMI</span>
-          <i></i>
+          <span>Hitung BMI</span><i></i>
         </button>
         <button id="btn-reset" class="btn-reset">
           <span><i class="fas fa-undo"></i> Reset</span>
@@ -79,11 +182,8 @@
 
       <div class="hasil-container">
         <p class="res-title">Skor BMI Anda</p>
-        <div class="skor-wrapper">
-          <span id="skor-bmi">0.0</span>
-        </div>
+        <div class="skor-wrapper"><span id="skor-bmi">0.0</span></div>
         <p id="keterangan" class="badge">Menunggu Data...</p>
-
         <div id="info-ideal" class="info-ideal" style="display: none">
           <p>Berat ideal: <strong id="range-ideal">-</strong></p>
         </div>
@@ -95,7 +195,7 @@
 
       <div class="footer">
         <button id="btn-tema" class="btn-theme-toggle">
-          <i class="fas fa-moon"></i> Ganti Tema
+          <i class="fas fa-moon"></i> Mode Gelap
         </button>
       </div>
     </div>
