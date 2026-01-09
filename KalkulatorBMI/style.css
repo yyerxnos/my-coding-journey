@@ -798,7 +798,7 @@ input[type="radio"]#wanita:checked + .gender-card {
   transition: all 0.3s ease;
 }
 
-/* Menyamakan Glow Biru untuk Pria 
+/* Menyamakan Glow Biru untuk Pria */
 input[type="radio"]#pria:checked + .gender-card {
   border-color: var(--primary); 
   color: var(--primary);
