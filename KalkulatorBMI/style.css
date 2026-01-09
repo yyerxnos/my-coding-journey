@@ -798,10 +798,42 @@ input[type="radio"]#wanita:checked + .gender-card {
   transition: all 0.3s ease;
 }
 
-/* Menyamakan Glow Biru untuk Pria */
+
 input[type="radio"]#pria:checked + .gender-card {
   border-color: var(--primary); 
   color: var(--primary);
   background: var(--card-white);
   box-shadow: 0 0 15px rgba(74, 144, 226, 0.4), 0 10px 20px rgba(0, 0, 0, 0.1);
 }
+
+
+
+.shiny-text {
+  position: relative;
+  overflow: hidden;
+}
+
+.shiny-text::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: rotate(30deg);
+  transition: none;
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0% { left: -60%; }
+  100% { left: 140%; }
+}
+
+/* Penyesuaian Skor BMI  */
+#skor-bmi {
+  transition: color 0.5s ease;
+  text-shadow: 0 10px 20px rgba(74, 144, 226, 0.2);
+}
+

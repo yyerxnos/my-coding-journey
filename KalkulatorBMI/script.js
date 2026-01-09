@@ -131,23 +131,44 @@ if (btnReset) btnReset.addEventListener("click", resetCalcuator);
 function hitungBMI() {
   const berat = parseFloat(inputBerat.value);
   const tinggiCm = parseFloat(inputTinggi.value);
+  
   if (isNaN(berat) || isNaN(tinggiCm) || berat <= 0 || tinggiCm <= 0) {
     alert("Mohon Dimasukan berat dan tinggi badan yang valid");
     return;
   }
+
   const tinggiM = tinggiCm / 100;
   const bmi = berat / (tinggiM * tinggiM);
-  const bmiFixed = bmi.toFixed(1);
-  skorBmiDisplay.innerText = bmiFixed;
+  const bmiFinal = parseFloat(bmi.toFixed(1)); 
 
-  let kategori = "",
-    warna = "",
-    saran = "";
+  // --- ANIMASI COUNT UP (Angka Berjalan) ---
+  let startValue = 0;
+  const duration = 1500; // Durasi animasi 1.5 detik
+  const startTime = performance.now();
+
+  function updateNumber(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    // Efek easeOutQuart agar melambat di akhir
+    const easeProgress = 1 - Math.pow(1 - progress, 4);
+    const currentNum = (easeProgress * bmiFinal).toFixed(1);
+    
+    skorBmiDisplay.innerText = currentNum;
+
+    if (progress < 1) {
+      requestAnimationFrame(updateNumber);
+    }
+  }
+  requestAnimationFrame(updateNumber);
+
+  // --- LOGIKA WARNA & TEKS (Tetap Menggunakan Data Anda) ---
+  let kategori = "", warna = "", saran = "";
+
   if (bmi < 18.5) {
     kategori = "kurang berat badan";
     warna = "#e74c3c";
-    saran =
-      "Anda berada di kategori kurang berat badan. Tingkatkan asupan kalori dengan makanan bergizi seimbang.";
+    saran = "Anda berada di kategori kurang berat badan. Tingkatkan asupan kalori dengan makanan bergizi seimbang.";
   } else if (bmi >= 18.5 && bmi <= 24.9) {
     kategori = "berat badan normal";
     warna = "#04ff00";
@@ -155,31 +176,23 @@ function hitungBMI() {
   } else if (bmi >= 25 && bmi <= 29.9) {
     kategori = "kelebihan berat badan";
     warna = "#ff8400";
-    saran =
-      "Anda masuk kategori kelebihan berat badan. Cobalah untuk lebih aktif bergerak.";
   } else {
     kategori = "obesitas";
     warna = "#7a0606";
-    saran =
-      "Status kesehatan Anda termasuk kategori obesitas. Sebaiknya konsultasikan dengan dokter.";
+    saran = "Status kesehatan Anda termasuk kategori obesitas. Sebaiknya konsultasikan dengan dokter.";
   }
 
+  // Update Tampilan
   keteranganDisplay.innerText = kategori;
   keteranganDisplay.style.backgroundColor = warna;
+  keteranganDisplay.classList.add("shiny-text"); // Tambahkan efek Shiny dari CSS
+
   teksSaran.innerText = saran;
   boxSaran.style.display = "block";
+  
   const minIdeal = (18.5 * tinggiM * tinggiM).toFixed(1);
   const maxIdeal = (24.9 * tinggiM * tinggiM).toFixed(1);
   rangeIdealDisplay.innerText = `${minIdeal} Kg - ${maxIdeal} kg`;
   boxIdeal.style.display = "block";
 }
 
-function resetCalcuator() {
-  inputBerat.value = "";
-  inputTinggi.value = "";
-  skorBmiDisplay.innerText = "0.0";
-  keteranganDisplay.innerText = "Menunggu data";
-  keteranganDisplay.style.backgroundColor = "var(--text-sub)";
-  boxIdeal.style.display = "none";
-  boxSaran.style.display = "none";
-}
