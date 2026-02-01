@@ -214,3 +214,26 @@ function resetCalcuator() {
   teksSaran.innerText = "";
   rangeIdealDisplay.innerText = "-";
 }
+
+// Tambahkan class no-scroll saat pertama kali web dibuka
+document.body.classList.add('no-scroll');
+
+
+
+btnMasuk.addEventListener('click', () => {
+  landingPage.style.opacity = '0';
+  landingPage.style.visibility = 'hidden';
+  
+  // HAPUS no-scroll agar kalkulator bisa di-scroll (jika kontennya panjang)
+  document.body.classList.remove('no-scroll');
+});
+
+
+
+btnKembali.addEventListener('click', () => {
+  landingPage.style.opacity = '1';
+  landingPage.style.visibility = 'visible';
+  
+  // TAMBAHKAN LAGI no-scroll saat balik ke landing page
+  document.body.classList.add('no-scroll');
+});

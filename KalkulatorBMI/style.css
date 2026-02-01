@@ -317,7 +317,10 @@ input::-webkit-inner-spin-button {
 /* --- KHUSUS LANDING PAGE & MODAL --- */
 .landing-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Mengisi seluruh layar */
   background: var(--bg-light);
   z-index: 999;
   display: flex;
@@ -325,7 +328,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   text-align: center;
   padding: 20px;
-  transition: 0.5s ease-in-out;
+  overflow: hidden; /* Mencegah konten di dalam landing page itu sendiri scroll */
 }
 
 .icon-large {
@@ -837,3 +840,8 @@ input[type="radio"]#pria:checked + .gender-card {
   text-shadow: 0 10px 20px rgba(74, 144, 226, 0.2);
 }
 
+/* Class untuk mematikan scroll */
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
